@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: HiCloud SSM Impl
+Implementation-Version: 1.5.2.RELEASE
+Built-By: dell
+Implementation-Vendor-Id: org.springframework.boot
+Build-Jdk: 1.8.0_141
+Implementation-URL: http://projects.spring.io/spring-boot/hicloud-ssm-
+ impl/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
