@@ -6,6 +6,7 @@ package com.huawei.hicloud.pojo;
  *
  */
 public class Volume {
+	
 	private Integer id;
 	// 序列号
 	private String serialNumber;
@@ -17,6 +18,7 @@ public class Volume {
 	private String region;
 	// 描述
 	private String description;
+	
 	
 	public Integer getId() {
 		return id;
@@ -36,10 +38,10 @@ public class Volume {
 	public void setCapacity(Integer capacity) {
 		this.capacity = capacity;
 	}
-	public String getdiskType() {
+	public String getDiskType() {
 		return diskType;
 	}
-	public void setdiskType(String diskType) {
+	public void setDiskType(String diskType) {
 		this.diskType = diskType;
 	}
 	public String getRegion() {
@@ -57,8 +59,8 @@ public class Volume {
 	
 	@Override
 	public String toString() {
-		return "Volume [id=" + id + ", serialNumber=" + serialNumber + ", capacity=" + capacity + ", diskType=" + diskType
-				+ ", region=" + region + ", description=" + description + "]";
+		return "Volume [id=" + id + ", serialNumber=" + serialNumber + ", capacity=" + capacity + ", diskType="
+				+ diskType + ", region=" + region + ", description=" + description + "]";
 	}
 	
 }

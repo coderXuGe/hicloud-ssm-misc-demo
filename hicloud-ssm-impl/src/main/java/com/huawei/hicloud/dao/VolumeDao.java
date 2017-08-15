@@ -12,6 +12,4 @@ import com.huawei.hicloud.pojo.Volume;
 @Repository
 public interface VolumeDao extends BaseDao<Volume> {
 	
-	
-
 }

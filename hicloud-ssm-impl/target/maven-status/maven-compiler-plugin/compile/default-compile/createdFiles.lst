@@ -2,14 +2,17 @@ com\huawei\hicloud\pojo\Volume.class
 com\huawei\hicloud\controller\RabbitMQController.class
 com\huawei\hicloud\controller\RedisController.class
 com\huawei\hicloud\controller\TestController.class
+com\huawei\hicloud\controller\VolumeForm.class
 com\huawei\hicloud\common\rabbitmq\TopicRabbitMQConfig.class
 com\huawei\hicloud\common\rabbitmq\DirectRabbitMQListener.class
 com\huawei\hicloud\common\rabbitmq\FanoutRabbitMQConfig.class
 com\huawei\hicloud\controller\VolumeController.class
 com\huawei\hicloud\common\jedis\IRedisClient.class
 com\huawei\hicloud\common\jedis\RedisClient.class
+com\huawei\hicloud\utils\ConvertUtils.class
 com\huawei\hicloud\common\rabbitmq\DirectRabbitMQConfig.class
 com\huawei\hicloud\service\impl\StorageServiceImpl.class
+com\huawei\hicloud\utils\PageModel.class
 com\huawei\hicloud\common\rabbitmq\TopicRabbitMQListener.class
 com\huawei\hicloud\dao\BaseDao.class
 com\huawei\hicloud\common\constants\IRabbitMQConstants.class

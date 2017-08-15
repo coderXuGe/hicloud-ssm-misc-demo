@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
 <mapper namespace="com.huawei.hicloud.dao.VolumeDao">
-	<!-- 所有字段 -->
-	<sql id="base_columns">
-		t.id, t.serial_number "serialNumber", t.capacity, t.disk_type "diskType", t.region, t.description
+	<!-- 查询字段 -->
+	<sql id="sql_columns_select">
+		t.id, t.serial_number "serialNumber", t.capacity,t.disk_type "diskType", t.region, t.description
 	</sql>
-	
+	<!-- 插入字段 -->
+	<!-- <sql id="sql_columns_insert"> id, serial_number, capacity, disk_type, 
+		region, description </sql> -->
+
 	<!-- 查询条件 -->
-	<sql id="select_fragment">
+	<sql id="sql_columns_where">
 		<if test="id != null and id !=''">
 			id = #{id}
 		</if>
@@ -23,20 +27,52 @@
 		<if test="region != null and region !=''">
 			and region = #{region}
 		</if>
+		<if test="description != null and description !=''">
+			and description = #{description}
+		</if>
 	</sql>
-	
+
+	<sql id="sql_columns_where1">
+		<if test='_parameter.get("0").id != null and _parameter.get("0").id !=""'>
+			t.id = #{0.id}
+		</if>
+		<if
+			test='_parameter.get("0").serialNumber != null and _parameter.get("0").serialNumber !=""'>
+			and t.serial_number = #{0.serialNumber}
+		</if>
+		<if test='_parameter.get("0").capacity != null'>
+			and t.capacity = #{0.capacity}
+		</if>
+		<if
+			test='_parameter.get("0").diskType != null and _parameter.get("0").diskType !=""'>
+			and t.disk_type = #{0.diskType}
+		</if>
+		<if
+			test='_parameter.get("0").region != null and _parameter.get("0").region !=""'>
+			and t.region = #{0.region}
+		</if>
+		<if
+			test='_parameter.get("0").description != null and _parameter.get("0").description !=""'>
+			and t.description = #{0.description}
+		</if>
+	</sql>
+
 	<!-- 插入数据 -->
 	<insert id="add" parameterType="com.huawei.hicloud.pojo.Volume">
-		<selectKey keyProperty="id" resultType="java.lang.Integer" order="BEFORE">
+		<selectKey keyProperty="id" resultType="java.lang.Integer"
+			order="BEFORE">
 			SELECT VOLUME_SEQ.NEXTVAL FROM dual
 		</selectKey>
-		INSERT INTO VOLUME_T (id, serial_number, capacity, disk_type, region, description)
-		VALUES (#{id}, #{serialNumber},  #{capacity},  #{diskType},  #{region},  #{description})
+		INSERT INTO VOLUME_T (id, serial_number, capacity, disk_type, region,
+		description)
+		VALUES (#{id}, #{serialNumber}, #{capacity}, #{diskType},
+		#{region}, #{description})
 	</insert>
-	
+
 	<!-- 删除数据 -->
 	<delete id="delete" parameterType="com.huawei.hicloud.pojo.Volume">
-		DELETE FROM VOLUME_T WHERE t.id = #{id}
+		DELETE FROM VOLUME_T t WHERE
+		t.id = #{id}
 	</delete>
 
 	<update id="update" parameterType="com.huawei.hicloud.pojo.Volume">
@@ -60,25 +96,62 @@
 		</set>
 		where id = #{id}
 	</update>
-	
+
 	<select id="findById" resultType="com.huawei.hicloud.pojo.Volume">
-		SELECT <include refid="base_columns" />
+		SELECT
+		<include refid="sql_columns_select" />
 		FROM VOLUME_T t
 		where t.id = #{id}
 	</select>
-	
+
 	<!-- 查询所有符合条件的记录 -->
-	<select id="findList" parameterType="com.huawei.hicloud.pojo.Volume" resultType="com.huawei.hicloud.pojo.Volume">
-		SELECT <include refid="base_columns" />
+	<select id="findList" parameterType="com.huawei.hicloud.pojo.Volume"
+		resultType="com.huawei.hicloud.pojo.Volume">
+		SELECT
+		<include refid="sql_columns_select" />
 		FROM VOLUME_T t
 		<where>
-			<include refid="select_fragment" />
+			<include refid="sql_columns_where" />
 		</where>
 	</select>
-	
+
+	<!-- 分页查询 -->
+	<select id="findByPage" resultType="com.huawei.hicloud.pojo.Volume">
+		select t.id, t.serial_number "serialNumber", t.capacity,t.disk_type "diskType", t.region, t.description
+	    from
+	    (select rownum rn, t.* from VOLUME_T t
+	    <where>
+	      <if test='_parameter.get("0").id != null and _parameter.get("0").id !=""'>
+	        t.id = #{0.id}
+	      </if>
+	      <if test='_parameter.get("0").serialNumber != null and _parameter.get("0").serialNumber != ""'>
+	        and t.serial_number = #{0.serialNumber}
+	      </if>
+	      <if test='_parameter.get("0").capacity != null'>
+	        and t.capacity = #{0.capacity}
+	      </if>
+	      <if test='_parameter.get("0").diskType != null and _parameter.get("0").diskType != ""'>
+	        and t.disk_type = #{0.diskType}
+	      </if>
+	      <if test='_parameter.get("0").region != null and _parameter.get("0").region != ""'>
+	        and t.region = #{0.region}
+	      </if>
+	      <if test='_parameter.get("0").description != null and _parameter.get("0").description != ""'>
+	        and t.description = #{0.description}
+	      </if>
+	        <![CDATA[
+	          and rownum <= #{1.endIndex}
+	        ]]>
+	    </where>
+	    ) t where  <![CDATA[ t.rn >= #{1.startIndex} ]]>
+	</select>
+
+	<!-- 查询所有 -->
 	<select id="findAll" resultType="com.huawei.hicloud.pojo.Volume">
-		SELECT <include refid="base_columns" />
+		SELECT
+		<include refid="sql_columns_select" />
 		FROM VOLUME_T t
 	</select>
+
 </mapper>
 

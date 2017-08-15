@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.huawei.hicloud.dao.VolumeDao;
 import com.huawei.hicloud.pojo.Volume;
 import com.huawei.hicloud.service.StorageService;
+import com.huawei.hicloud.utils.PageModel;
 
 @Service
 public class StorageServiceImpl implements StorageService{
@@ -42,9 +43,8 @@ public class StorageServiceImpl implements StorageService{
 	
 	/** 分页查询 */
 	@Override
-	public List<Volume> findPageList(Volume volume) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Volume> findByPage(Volume volume, PageModel pageModel) {
+		return volumeDao.findByPage(volume, pageModel);
 	}
 
 	@Override

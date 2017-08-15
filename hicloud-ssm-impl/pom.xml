@@ -45,6 +45,20 @@
 	    <version>1.4.7.RELEASE</version>
 	</dependency>
 	
+	<!-- optional=true,依赖不会传递，仅该项目依赖devtools
+			之后依赖myboot项目的项目如果想要使用devtools，需要重新引入 -->  
+	<!-- <dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-devtools</artifactId>
+	    <version>1.5.6.RELEASE</version>
+	    <optional>true</optional>
+	</dependency> -->
+
+	<dependency>
+		<groupId>com.alibaba</groupId>
+		<artifactId>fastjson</artifactId>
+		<version>1.2.35</version>
+	</dependency>
   </dependencies>
   <build>
   	<plugins>

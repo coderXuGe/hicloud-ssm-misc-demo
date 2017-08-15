@@ -7,7 +7,6 @@
   <name>HiCloud SSM</name>
   <description>HiCloud ssm freamwork</description>
   <modules>
-  	<module>hicloud-ssm-api</module>
   	<module>hicloud-ssm-impl</module>
   </modules>
 </project>

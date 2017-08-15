@@ -2,6 +2,7 @@ package com.huawei.hicloud.controller;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.huawei.hicloud.common.ResponseResult;
 import com.huawei.hicloud.pojo.Volume;
 import com.huawei.hicloud.service.StorageService;
+import com.huawei.hicloud.utils.ConvertUtils;
+import com.huawei.hicloud.utils.PageModel;
 
 @RestController
 public class VolumeController {
@@ -54,6 +57,17 @@ public class VolumeController {
 		}
 	}
 	
+	@RequestMapping(value="/volume/findList", method=RequestMethod.POST)
+	public ResponseResult findList(@RequestBody Volume volume) {
+		try {
+			List<Volume> list = storageService.findList(volume);
+			return ResponseResult.ok(list);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseResult(400, "Exceptionn @VolumeController.findList", null);
+		}
+	}
+	
 	@RequestMapping(value="/volume/findById/{id}", method=RequestMethod.GET)
 	public ResponseResult findById(@PathVariable(value="id") Serializable id) {
 		try {
@@ -62,17 +76,6 @@ public class VolumeController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseResult(400, "Exceptionn @VolumeController.findById", null);
-		}
-	}
-	
-	@RequestMapping(value="/volume/findList", method=RequestMethod.GET)
-	public ResponseResult findList(@RequestBody Volume volume) {
-		try {
-			List<Volume> list = storageService.findList(volume);
-			return ResponseResult.ok(list);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseResult(400, "Exceptionn @VolumeController.findList", null);
 		}
 	}
 	
@@ -87,14 +90,25 @@ public class VolumeController {
 		}
 	}
 	
-	@RequestMapping(value="/volume/findPageList", method=RequestMethod.GET)
-	public ResponseResult findPageList(Volume volume) {
+	/**
+	 * 分页查询
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping(value="/volume/findByPage", method=RequestMethod.POST)
+	public ResponseResult findByPage(@RequestBody Map<String, Object> map) {
+		Volume volume = null;
+		PageModel pageModel = null;
+		
 		try {
-			List<Volume> list = storageService.findPageList(volume);
+			volume = ConvertUtils.object2Class(map.get("volume"), Volume.class);
+			pageModel = ConvertUtils.object2Class(map.get("pageModel"), PageModel.class);
+			
+			List<Volume> list = storageService.findByPage(volume, pageModel);
 			return ResponseResult.ok(list);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseResult(400, "Exceptionn @VolumeController.findAll", null);
+			return new ResponseResult(400, "Exceptionn @VolumeController.findByPage", null);
 		}
 	}
 	

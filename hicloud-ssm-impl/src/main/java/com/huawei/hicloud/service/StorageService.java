@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.huawei.hicloud.pojo.Volume;
+import com.huawei.hicloud.utils.PageModel;
 
 public interface StorageService {
 	
@@ -21,5 +22,5 @@ public interface StorageService {
 	/** 查询所有 */
 	public List<Volume> findAll();
 
-	public List<Volume> findPageList(Volume volume);
+	public List<Volume> findByPage(Volume volume, PageModel pageModel);
 }
